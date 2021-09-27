@@ -2,14 +2,23 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <h1>Books API</h1>
+        <h1 class="mt-5 text-center">Books API</h1>
         <hr />
       </div>
-      <div class="col-md-8">
+      <div class="col-md-7 h-auto">
         <div class="card">
-          <div class="card-header">-Books-</div>
-          <div class="card-body">
-            <table class="table">
+          <div class="card-header">
+            Books
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              @click="newBook"
+            >
+              New Book
+            </button>
+          </div>
+          <div class="card-body table-responsive">
+            <table class="table table-bordered table-hover">
               <thead>
                 <tr>
                   <th>S/No</th>
@@ -32,17 +41,17 @@
                   <td>
                     <button
                       type="button"
-                      class="btn btn-primary btn-sm"
+                      class="btn btn-primary btn-sm m-1"
                       @click="getBook(book.id)"
                     >
                       View
                     </button>
-                    |
-                    <button type="button" class="btn btn-success btn-sm">
+
+                    <button type="button" class="btn btn-success btn-sm m-1">
                       Update
                     </button>
-                    |
-                    <button type="button" class="btn btn-danger btn-sm">
+
+                    <button type="button" class="btn btn-danger btn-sm m-1">
                       Delete
                     </button>
                   </td>
@@ -52,10 +61,86 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4" v-if="viewBook">
+      <!-- View book -->
+      <div class="col-md-5" v-if="view === 'book'">
         <div class="card text-left">
-          <div class="card-header">{{ viewBook.name }}</div>
-          <div class="card-body"></div>
+          <div class="card-header">BooK - {{ viewBook.name }}</div>
+          <div class="card-body">
+            <P>NAME: {{ viewBook.name }}</P>
+            <P>ISBN: {{ viewBook.isbn }}</P>
+            <P
+              >AUTHORS:
+              <span v-for="author in viewBook.authors" :key="author">
+                {{ author }}</span
+              >
+            </P>
+            <P>NUMBER OF PAGES: {{ viewBook.number_of_pages }}</P>
+            <P>PUBLISHER: {{ viewBook.publisher }}</P>
+            <P>COUNTRY: {{ viewBook.country }}</P>
+            <P>RELEASE DATE: {{ viewBook.release_date }}</P>
+          </div>
+        </div>
+      </div>
+      <!-- create Book form -->
+      <div class="col-md-5" v-if="view === 'newbook'">
+        <div class="card text-left">
+          <div class="card-header">Add New Book</div>
+          <div class="card-body">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control mt-2"
+                placeholder="Book Name"
+                v-model="newBookForm.name"
+              />
+              <input
+                type="text"
+                class="form-control mt-2"
+                placeholder="ISBN"
+                v-model="newBookForm.isbn"
+              />
+
+              <input
+                type="text"
+                class="form-control mt-2"
+                placeholder="Authors"
+                v-model="newBookForm.authors"
+              />
+              <input
+                type="text"
+                class="form-control mt-2"
+                placeholder="Country"
+                v-model="newBookForm.country"
+              />
+              <input
+                type="number"
+                class="form-control mt-2"
+                placeholder="Number of Pages"
+                v-model="newBookForm.number_of_pages"
+              />
+              <input
+                type="text"
+                class="form-control mt-2"
+                placeholder="Publisher"
+                v-model="newBookForm.publisher"
+              />
+              <input
+                type="date"
+                class="form-control mt-2"
+                placeholder="Release Date"
+                v-model="newBookForm.release_date"
+              />
+
+              <hr />
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                @click="createBook"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -68,7 +153,18 @@ export default {
     return {
       test: "test data",
       books: [],
+      view: "",
       viewBook: null,
+      createdBook: null,
+      newBookForm: {
+        name: "",
+        isbn: "",
+        authors: "",
+        country: "",
+        number_of_pages: "",
+        publisher: "",
+        release_date: "",
+      },
     };
   },
   mounted() {
@@ -85,8 +181,21 @@ export default {
     getBook(id) {
       axios.get(`http://localhost:8080/api/v1/books/${id}`).then((res) => {
         this.viewBook = res.data.data;
-        console.log(this.viewBook);
+        this.view = "book";
       });
+    },
+
+    newBook() {
+      this.view = "newbook";
+    },
+
+    createBook() {
+      console.log(this.newBookForm);
+      //   axios
+      //     .post(`http://localhost:8080/api/v1/books`, this.newBookForm)
+      //     .then((res) => {
+      //       this.createdBook = res.data.data;
+      //     });
     },
   },
 };
