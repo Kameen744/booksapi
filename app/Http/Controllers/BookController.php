@@ -116,7 +116,22 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return [
+            "status_code"   => 200,
+            "status"        => "success",
+            "data"          => [
+                [
+                    "name"              => $book->name,
+                    "isbn"              => $book->isbn,
+                    "authors"           => [$book->authors],
+                    "number_of_pages"   => $book->number_of_pages,
+                    "publisher"         => $book->publisher,
+                    "country"           => $book->country,
+                    "release_date"      => $book->release_date,
+                ]
+
+            ]
+        ];
     }
 
     /**
@@ -139,7 +154,45 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $data = $request->validate([
+            'name'              => 'required|string',
+            'isbn'              => 'required|string',
+            'authors'           => 'required|string',
+            'country'           => 'required|string',
+            'number_of_pages'   => 'required|integer',
+            'publisher'         => 'required|string',
+            'release_date'      => 'required|date',
+        ]);
+
+        $book_updated = $book->update($data);
+
+        if($book_updated) {
+            return [
+                "status_code"   => 200,
+                "status"        => "success",
+                "message"       => 'The book ' .$book->name .' was updated successfully',
+                "data"          => [
+                    [
+                        "name"              => $book->name,
+                        "isbn"              => $book->isbn,
+                        "authors"           => [$book->authors],
+                        "number_of_pages"   => $book->number_of_pages,
+                        "publisher"         => $book->publisher,
+                        "country"           => $book->country,
+                        "release_date"      => $book->release_date,
+                    ]
+
+                ]
+            ];
+        }
+    }
+
+    /**
+     * Update alternative
+     */
+
+    public function update_alternative(Request $request, Book $book) {
+        return $this->update($request, $book);
     }
 
     /**
@@ -150,7 +203,16 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        // delete book
+        $book->delete();
+
+        // return response
+        return [
+            "status_code"   => 204,
+            "status"        => "success",
+            "message"       => $book->name .' was deleted successufully',
+            "data"          => [],
+        ];
     }
 
     /**

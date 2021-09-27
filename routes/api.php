@@ -24,4 +24,8 @@ Route::get('/external-books/{book}', [BookController::class, 'external_books']);
 Route::prefix('v1')->group(function () {
     Route::post('books', [BookController::class, 'store']);
     Route::get('books', [BookController::class, 'index']);
+    Route::get('books/{book}', [BookController::class, 'show']);
+    Route::patch('books/{book}', [BookController::class, 'update']);
+    Route::post('books/{book}/update', [BookController::class, 'update_alternative']);
+    Route::delete('books/{book}', [BookController::class, 'destroy']);
 });
