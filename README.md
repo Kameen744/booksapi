@@ -13,30 +13,30 @@ A books information api using Laravel
 6. run command: php artisan serve
 
 Requirement 1:
-# get: http://localhost:8080/api/external-books/a game of thrones
+### get: http://localhost:8080/api/external-books/a game of thrones
 
 Requirement 2:
-# post http://localhost:8080/api/v1/books
+### post http://localhost:8080/api/v1/books
 note: with a form data - to create a book
 
 Requirement 3:
-# patch http://localhost:8080/api/v1/books/1
+### patch http://localhost:8080/api/v1/books/1
 note: with a form data - to updated a book
 note: 1 is a book id;
 
 Requirement 3 - updating book alternative:
-# post http://localhost:8080/api/v1/books/1/update
+### post http://localhost:8080/api/v1/books/1/update
 note: with a form data - to updated a book
 
 Requirement 3:
-# get http://localhost:8080/api/v1/books
+### get http://localhost:8080/api/v1/books
 to get list of books
 
 Requirement 3:
-# get http://localhost:8080/api/v1/books/1
+### get http://localhost:8080/api/v1/books/1
 To get get a single book 
 note: 1 is a book id - in this case book with id 1
 
 Requirement 3:
-# delete http://localhost:8080/api/v1/books/1
+### delete http://localhost:8080/api/v1/books/1
 To delete a book
