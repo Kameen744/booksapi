@@ -22,11 +22,5 @@ use App\Http\Controllers\BookController;
 Route::get('/external-books/{book}', [BookController::class, 'external_books']);
 
 Route::prefix('v1')->group(function () {
-    // Route::get('posts', 'Api\ApiController@posts');
-    // Route::get('posts/{news}', 'Api\ApiController@read');
-    // Route::get('category{type}', 'Api\ApiController@category');
-    // Route::get('category/{category}', 'Api\ApiController@post_category');
-    // Route::get('catname/{cat}', 'Api\ApiController@get_by_catname');
+    Route::post('books', [BookController::class, 'store']);
 });
-
-

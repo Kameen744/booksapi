@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
+
 
 class BookController extends Controller
 {
@@ -36,7 +38,44 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate form data
+        $data = $request->validate([
+            'name'              => 'required|string',
+            'isbn'              => 'required|string',
+            'authors'           => 'required|string',
+            'country'           => 'required|string',
+            'number_of_pages'   => 'required|integer',
+            'publisher'         => 'required|string',
+            'release_date'      => 'required|date',
+        ]);
+
+        // create book record
+        $create_book = Book::create($data);
+
+        // if record created
+        if($create_book) {
+            return [
+                "status_code"   => 201,
+                "status"        => "success",
+                "data"          => [
+                    [
+                        "name"              => $create_book->name,
+                        "isbn"              => $create_book->isbn,
+                        "authors"           => [$create_book->authors],
+                        "number_of_pages"   => $create_book->number_of_pages,
+                        "publisher"         => $create_book->publisher,
+                        "country"           => $create_book->country,
+                        "release_date"      => $create_book->release_date,
+                    ]
+
+                ]
+            ];
+        }
+
+        // else if book is not created
+        return [
+            'error' => 'could not create book'
+        ];
     }
 
     /**
@@ -107,6 +146,7 @@ class BookController extends Controller
                             "authors"           => $data['authors'],
                             "number_of_pages"   => $data['numberOfPages'],
                             "publisher"         => $data['publisher'],
+                            "country"           => $data['country'],
                             "release_date"      => $data['released'],
                         ]
 
