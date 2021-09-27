@@ -88,16 +88,13 @@ class BookController extends Controller
                 "status_code"   => 201,
                 "status"        => "success",
                 "data"          => [
-                    [
-                        "name"              => $create_book->name,
-                        "isbn"              => $create_book->isbn,
-                        "authors"           => [$create_book->authors],
-                        "number_of_pages"   => $create_book->number_of_pages,
-                        "publisher"         => $create_book->publisher,
-                        "country"           => $create_book->country,
-                        "release_date"      => $create_book->release_date,
-                    ]
-
+                    "name"              => $create_book->name,
+                    "isbn"              => $create_book->isbn,
+                    "authors"           => [$create_book->authors],
+                    "number_of_pages"   => $create_book->number_of_pages,
+                    "publisher"         => $create_book->publisher,
+                    "country"           => $create_book->country,
+                    "release_date"      => $create_book->release_date,
                 ]
             ];
         }
@@ -120,17 +117,14 @@ class BookController extends Controller
             "status_code"   => 200,
             "status"        => "success",
             "data"          => [
-                [
-                    "name"              => $book->name,
-                    "isbn"              => $book->isbn,
-                    "authors"           => [$book->authors],
-                    "number_of_pages"   => $book->number_of_pages,
-                    "publisher"         => $book->publisher,
-                    "country"           => $book->country,
-                    "release_date"      => $book->release_date,
-                ]
-
-            ]
+                                    "name"              => $book->name,
+                                    "isbn"              => $book->isbn,
+                                    "authors"           => [$book->authors],
+                                    "number_of_pages"   => $book->number_of_pages,
+                                    "publisher"         => $book->publisher,
+                                    "country"           => $book->country,
+                                    "release_date"      => $book->release_date,
+                                ]
         ];
     }
 
