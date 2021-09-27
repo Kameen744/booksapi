@@ -17,7 +17,37 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        // get books at hundred records per request
+        $books = Book::paginate(100);
+
+        // if there's records
+        if($books->isNotEmpty()) {
+            $response = $books->map(function($data) {
+                return [
+                    "id"                => $data->id,
+                    "name"              => $data->name,
+                    "isbn"              => $data->isbn,
+                    "authors"           => [$data->authors],
+                    "number_of_pages"   => $data->number_of_pages,
+                    "publisher"         => $data->publisher,
+                    "country"           => $data->country,
+                    "release_date"      => $data->release_date,
+                ];
+            });
+
+            return [
+                "status_code"   => 200,
+                "status"        => "success",
+                'data' => $response,
+            ];
+        }
+
+        // else if there's no record
+        return [
+            "status_code"   => 200,
+            "status"        => "success",
+            "data"          => [],
+        ];
     }
 
     /**

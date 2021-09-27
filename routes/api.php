@@ -23,4 +23,5 @@ Route::get('/external-books/{book}', [BookController::class, 'external_books']);
 
 Route::prefix('v1')->group(function () {
     Route::post('books', [BookController::class, 'store']);
+    Route::get('books', [BookController::class, 'index']);
 });
