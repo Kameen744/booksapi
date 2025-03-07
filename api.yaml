@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  title: Sale Order API (Dot-Separated)
+  version: 1.0.0
+  description: API for managing sale orders with dot-separated paths.
+servers:
+  - url: https://playzone.sydani.org/api/method/syda_custom.tests.res
+    description: Production server
+paths:
+  .sale_orders:
+    get:
+      summary: Get a sale order.
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        doc_name:
+                          type: string
+                        customer_name:
+                          type: string
+                        project:
+                          type: string
+                        transaction_date:
+                          type: string
+                        delivery_date:
+                          type: string
+                        company:
+                          type: string
+                        currency:
+                          type: string
+                        price_list_currency:
+                          type: string
+                        conversion_rate:
+                          type: integer
+                        total_qty:
+                          type: integer
+                        base_total:
+                          type: integer
+                        tax_category:
+                          type: string
+                        base_total_taxes_and_charges:
+                          type: integer
+                        total_taxes_and_charges:
+                          type: integer
+                        base_grand_total:
+                          type: integer
+
+  .sale_persons:
+    get:
+      summary: Get sale persons.
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        doc_name:
+                          type: string
+                        sales_person_name:
+                          type: string
+                        employee:
+                          type: string
+                          nullable: true
+                        commission_rate:
+                          type: string
+                          nullable: true
+                        department:
+                          type: string
+                          nullable: true
+                        enabled:
+                          type: integer
+
+  .sale_order:
+    get:
+      summary: Get sale order items.
+      parameters:
+        - doc_name: doc_name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      doc_name:
+                        type: string
+                      customer_name:
+                        type: string
+                      project:
+                        type: string
+                      transaction_date:
+                        type: string
+                      delivery_date:
+                        type: string
+                      company:
+                        type: string
+                      currency:
+                        type: string
+                      price_list_currency:
+                        type: string
+                      conversion_rate:
+                        type: integer
+                      total_qty:
+                        type: integer
+                      base_total:
+                        type: integer
+                      tax_category:
+                        type: string
+                      base_total_taxes_and_charges:
+                        type: integer
+                      total_taxes_and_charges:
+                        type: integer
+                      base_grand_total:
+                        type: integer
+
+  .sale_person:
+    get:
+      summary: Get a specific sale person.
+      parameters:
+        - name: doc_name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      doc_name:
+                        type: string
+                      sales_person_name:
+                        type: string
+                      employee:
+                        type: string
+                        nullable: true
+                      commission_rate:
+                        type: string
+                        nullable: true
+                      department:
+                        type: string
+                        nullable: true
+                      enabled:
+                        type: integer
